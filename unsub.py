@@ -80,12 +80,15 @@ DUMP_LOCATION = '/tmp/unsub_raw_mail'
 # MAIN
 ################################################################################
 
-if sys.argc is not 2:
+# it's 3 because argv[0] is the name of the program
+print sys.argv[0]
+if len(sys.argv) is not 3:
     print "ERROR: must provide <email_user> and <email_pass> as cli arguments"
     print "Example: python unsub.py duder@mysite.com supersecretpass"
+    sys.exit(1)
 
-email_user= sys.argv[0]
-email_pass= sys.argc[1]
+email_user = sys.argv[1]
+email_pass = sys.argv[2]
 
 print "============================================================"
 print "Starting unsub checker..."
@@ -99,7 +102,7 @@ rules = [
 ]
 
 mail = imaplib.IMAP4_SSL('imap.gmail.com')
-mail.login(EMAIL_USER, EMAIL_PASS)
+mail.login(email_user, email_pass)
 mail.select('[Gmail]/All Mail')
 _, data = mail.search(None, 'All')
 ids = data[0]
